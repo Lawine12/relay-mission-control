@@ -1,0 +1,359 @@
+/******************************************************************************
+ *
+ * Relay Mission Control
+ *
+ * glass.css
+ *
+ ******************************************************************************/
+
+/******************************************************************************
+ * GLASS FOUNDATION
+ ******************************************************************************/
+
+.glass {
+
+    position: relative;
+
+    overflow: hidden;
+
+    border-radius: 24px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,.055),
+            rgba(255,255,255,.015)
+        ),
+        rgba(18,20,24,.72);
+
+    border: 1px solid rgba(255,255,255,.05);
+
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+
+    box-shadow:
+        0 20px 40px rgba(0,0,0,.45),
+        inset 0 1px 0 rgba(255,255,255,.08);
+
+    transition:
+        transform .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease;
+
+}
+
+/******************************************************************************
+ * TOP REFLECTION
+ ******************************************************************************/
+
+.glass::before {
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:0;
+    right:0;
+
+    height:1px;
+
+    background:
+
+        linear-gradient(
+
+            90deg,
+
+            transparent,
+
+            rgba(255,255,255,.25),
+
+            transparent
+
+        );
+
+}
+
+/******************************************************************************
+ * BLUE EDGE GLOW
+ ******************************************************************************/
+
+.glass::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    pointer-events:none;
+
+    border-radius:inherit;
+
+    opacity:0;
+
+    transition:.25s ease;
+
+    box-shadow:
+
+        inset 0 0 0 1px rgba(0,157,255,.25),
+
+        0 0 25px rgba(0,157,255,.08);
+
+}
+
+/******************************************************************************
+ * HOVER
+ ******************************************************************************/
+
+.glass:hover{
+
+    transform:translateY(-2px);
+
+    border-color:
+
+        rgba(0,157,255,.18);
+
+    box-shadow:
+
+        0 28px 50px rgba(0,0,0,.55),
+
+        inset 0 1px 0 rgba(255,255,255,.10);
+
+}
+
+.glass:hover::after{
+
+    opacity:1;
+
+}
+
+/******************************************************************************
+ * HERO CARD
+ ******************************************************************************/
+
+.hero{
+
+    min-height:240px;
+
+}
+
+.hero::after{
+
+    opacity:1;
+
+    background:
+
+        radial-gradient(
+
+            circle at top right,
+
+            rgba(0,157,255,.15),
+
+            transparent 60%
+
+        );
+
+}
+
+/******************************************************************************
+ * TITLES
+ ******************************************************************************/
+
+.glass h1{
+
+    margin:12px 0 0;
+
+    font-size:34px;
+
+    font-weight:700;
+
+    color:white;
+
+}
+
+.glass h2{
+
+    margin:0;
+
+    color:#B8C0CC;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    letter-spacing:.22em;
+
+    text-transform:uppercase;
+
+}
+
+/******************************************************************************
+ * CONTENT
+ ******************************************************************************/
+
+.glass p{
+
+    color:#AEB6C2;
+
+}
+
+/******************************************************************************
+ * STATUS ROW
+ ******************************************************************************/
+
+.status-row{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:14px 0;
+
+    border-bottom:
+
+        1px solid rgba(255,255,255,.05);
+
+}
+
+.status-row:last-child{
+
+    border-bottom:none;
+
+}
+
+/******************************************************************************
+ * STATUS LED
+ ******************************************************************************/
+
+.status-led{
+
+    width:10px;
+
+    height:10px;
+
+    border-radius:50%;
+
+    background:#00D26A;
+
+    box-shadow:
+
+        0 0 12px #00D26A;
+
+}
+
+.status-led.offline{
+
+    background:#FF3B30;
+
+    box-shadow:
+
+        0 0 12px #FF3B30;
+
+}
+
+/******************************************************************************
+ * GAUGE VALUE
+ ******************************************************************************/
+
+.metric{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:6px;
+
+}
+
+.metric-value{
+
+    font-size:38px;
+
+    font-weight:700;
+
+    color:white;
+
+}
+
+.metric-label{
+
+    font-size:13px;
+
+    color:#9AA4AF;
+
+    letter-spacing:.12em;
+
+    text-transform:uppercase;
+
+}
+
+/******************************************************************************
+ * BUTTON
+ ******************************************************************************/
+
+.glass button{
+
+    height:46px;
+
+    border:none;
+
+    border-radius:14px;
+
+    cursor:pointer;
+
+    background:
+
+        linear-gradient(
+            180deg,
+            rgba(0,157,255,.22),
+            rgba(0,157,255,.12)
+        );
+
+    color:white;
+
+    transition:.25s ease;
+
+}
+
+.glass button:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+
+        0 0 18px rgba(0,157,255,.20);
+
+}
+
+/******************************************************************************
+ * SCROLLBAR
+ ******************************************************************************/
+
+::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#101214;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#2B3138;
+
+    border-radius:999px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#3A424B;
+
+}
