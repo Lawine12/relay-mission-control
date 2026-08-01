@@ -2,10 +2,11 @@
  *
  * Relay Mission Control
  *
- * router.js
- *
  ******************************************************************************/
-import { SimRigPage } from "./pages/simrig-page.js";
+
+import { store } from "./store/store.js";
+import { Events } from "./core/event-bus.js";
+import { EVENT } from "./core/events.js";
 
 export class Router {
 
@@ -43,8 +44,11 @@ export class Router {
 
         this.container.innerHTML = "";
 
-        import { store } from "./store/store.js";
         store.setPage(name);
+
+        Events.emit(EVENT.PAGE_CHANGED, {
+            page: name
+        });
 
         if (this.current.mount) {
 
@@ -83,6 +87,12 @@ export class Router {
         this.navigate(defaultPage);
 
     }
+
+start(defaultPage = "home") {
+
+    this.navigate(defaultPage);
+
+}
 
 }
 router.register(

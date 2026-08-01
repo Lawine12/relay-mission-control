@@ -1,39 +1,30 @@
+/******************************************************************************
+ *
+ * Relay Mission Control
+ *
+ * app.js
+ *
+ * Bootstrap
+ *
+ ******************************************************************************/
+
 import { DashboardLayout } from "./layout/dashboard-layout.js";
-
-import { RelaySidebar } from "./components/relay-sidebar.js";
-import { RelayHeader } from "./components/relay-header.js";
-
 import { Router } from "./router.js";
 
 import { HomePage } from "./pages/home-page.js";
 
 window.addEventListener("DOMContentLoaded", () => {
 
-    const layout =
-        new DashboardLayout(document.body);
+    const layout = new DashboardLayout(document.body);
 
     layout.render();
 
-    const sidebar =
-        new RelaySidebar();
+    const router = new Router(layout.content);
 
-    layout.sidebar.innerHTML =
-        sidebar.render();
+    const home = new HomePage(layout.content);
 
-    const header =
-        new RelayHeader();
+    router.register("home", home);
 
-    layout.header.innerHTML =
-        header.render();
-
-    const router =
-        new Router(layout.content);
-
-    router.register(
-        "home",
-        new HomePage(layout.content)
-    );
-
-    router.start();
+    router.start("home");
 
 });

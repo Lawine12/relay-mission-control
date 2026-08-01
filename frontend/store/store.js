@@ -10,29 +10,45 @@ class Store {
 
     constructor() {
 
-        this.state = {
+this.state = {
 
-            page: "home",
+    page: "home",
 
-            connected: false,
+    connected: false,
 
-            entities: {},
+    entities: {},
 
-            theme: "relay",
+    theme: "relay",
 
-            notifications: [],
+    notifications: [],
 
-            race: {
+    services: {
 
-                session: null,
+        homeassistant: "online",
 
-                countdown: null,
+        mqtt: "offline",
 
-                flag: "green"
+        simhub: "offline",
 
-            }
+        crewchief: "offline",
 
-        };
+        tradingpaints: "offline",
+
+        internet: "online"
+
+    },
+
+    race: {
+
+        session: null,
+
+        countdown: null,
+
+        flag: "green"
+
+    }
+
+};
 
         this.listeners = new Set();
 
@@ -113,19 +129,3 @@ class Store {
 }
 
 export const store = new Store();
-
-services: {
-
-    homeassistant: "online",
-
-    mqtt: "offline",
-
-    simhub: "offline",
-
-    crewchief: "offline",
-
-    tradingpaints: "offline",
-
-    internet: "online"
-
-},

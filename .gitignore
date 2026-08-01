@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.vscode/
+.idea/
+
+*.log
+
+custom_components/relay_mission_control/www/relay/*.map
