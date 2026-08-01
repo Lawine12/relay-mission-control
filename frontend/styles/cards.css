@@ -1,0 +1,87 @@
+/******************************************************************************
+ * Progress Ring
+ ******************************************************************************/
+
+.progress-ring{
+
+    position:relative;
+
+    width:140px;
+
+    height:140px;
+
+}
+
+.progress-ring svg{
+
+    transform:rotate(-90deg);
+
+}
+
+.track{
+
+    fill:none;
+
+    stroke:rgba(255,255,255,.06);
+
+}
+
+.progress{
+
+    fill:none;
+
+    stroke-linecap:round;
+
+    transition:
+
+        stroke-dashoffset .6s ease;
+
+}
+
+.ring-content{
+
+    position:absolute;
+
+    inset:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+.ring-value{
+
+    font-size:34px;
+
+    font-weight:700;
+
+    color:white;
+
+}
+
+.ring-value span{
+
+    font-size:18px;
+
+    color:#9AA4AF;
+
+}
+
+.ring-label{
+
+    margin-top:6px;
+
+    font-size:13px;
+
+    letter-spacing:.15em;
+
+    color:#9AA4AF;
+
+    text-transform:uppercase;
+
+}
