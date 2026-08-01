@@ -307,3 +307,70 @@
     border-radius:50%;
 
 }
+
+/******************************************************************************
+ * Race Actions
+ ******************************************************************************/
+
+.race-actions{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:16px;
+
+    margin-top:16px;
+
+}
+
+.race-actions button{
+
+    height:56px;
+
+    border:none;
+
+    border-radius:16px;
+
+    cursor:pointer;
+
+    font-weight:700;
+
+    letter-spacing:.08em;
+
+    text-transform:uppercase;
+
+    color:white;
+
+    background:
+
+        linear-gradient(
+            180deg,
+            rgba(0,157,255,.25),
+            rgba(0,157,255,.10)
+        );
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+
+}
+
+.race-actions button:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 0 24px rgba(0,157,255,.20);
+
+}
+
+.race-description{
+
+    margin-top:24px;
+
+    color:#AEB6C2;
+
+    line-height:1.6;
+
+}
