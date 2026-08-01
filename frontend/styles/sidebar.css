@@ -1,0 +1,39 @@
+/******************************************************************************
+ * Sidebar Icons
+ ******************************************************************************/
+
+.sidebar-icon{
+
+    width:24px;
+
+    height:24px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:#B8C0CC;
+
+}
+
+.sidebar-icon svg{
+
+    width:24px;
+
+    height:24px;
+
+}
+
+button:hover .sidebar-icon{
+
+    color:white;
+
+}
+
+button.active .sidebar-icon{
+
+    color:#009DFF;
+
+}
