@@ -84,4 +84,144 @@
 
     text-transform:uppercase;
 
+}/******************************************************************************
+ * STATUS CHIP
+ ******************************************************************************/
+
+.relay-chip{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:8px 14px;
+
+    border-radius:999px;
+
+    background:
+
+        rgba(255,255,255,.04);
+
+    border:
+
+        1px solid rgba(255,255,255,.05);
+
+    transition:
+
+        transform .25s ease,
+
+        border-color .25s ease,
+
+        background .25s ease;
+
+}
+
+.relay-chip:hover{
+
+    transform:translateY(-2px);
+
+    border-color:
+
+        rgba(0,157,255,.18);
+
+}
+
+.relay-chip-led{
+
+    width:10px;
+
+    height:10px;
+
+    border-radius:50%;
+
+    animation:
+
+        relayPulse 2s infinite;
+
+}
+
+.relay-chip-label{
+
+    color:white;
+
+    font-size:13px;
+
+    letter-spacing:.08em;
+
+}
+
+.relay-chip-icon{
+
+    width:18px;
+
+    height:18px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+.relay-chip-online{
+
+    background:
+
+        rgba(0,210,106,.08);
+
+}
+
+.relay-chip-warning{
+
+    background:
+
+        rgba(255,176,0,.08);
+
+}
+
+.relay-chip-error{
+
+    background:
+
+        rgba(255,59,48,.08);
+
+}
+
+.relay-chip-info{
+
+    background:
+
+        rgba(0,157,255,.08);
+
+}
+
+@keyframes relayPulse{
+
+    0%{
+
+        transform:scale(.95);
+
+        opacity:.75;
+
+    }
+
+    50%{
+
+        transform:scale(1.1);
+
+        opacity:1;
+
+    }
+
+    100%{
+
+        transform:scale(.95);
+
+        opacity:.75;
+
+    }
+
 }
