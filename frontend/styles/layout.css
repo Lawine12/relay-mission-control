@@ -1,0 +1,260 @@
+/******************************************************************************
+ *
+ * Relay Mission Control
+ *
+ * layout.css
+ *
+ ******************************************************************************/
+
+:root {
+
+    --sidebar-width: 90px;
+    --right-width: 360px;
+
+    --header-height: 82px;
+    --footer-height: 48px;
+
+    --gap: 20px;
+
+}
+
+/******************************************************************************
+ * APP
+ ******************************************************************************/
+
+html,
+body{
+
+    width:100%;
+    height:100%;
+
+    margin:0;
+
+    overflow:hidden;
+
+}
+
+#dashboard{
+
+    width:100vw;
+    height:100vh;
+
+    display:grid;
+
+    grid-template-columns:
+
+        var(--sidebar-width)
+
+        minmax(700px,1fr)
+
+        var(--right-width);
+
+    grid-template-rows:
+
+        var(--header-height)
+
+        1fr
+
+        var(--footer-height);
+
+    grid-template-areas:
+
+        "sidebar header header"
+
+        "sidebar content right"
+
+        "sidebar footer footer";
+
+    gap:var(--gap);
+
+    padding:20px;
+
+    box-sizing:border-box;
+
+}
+
+/******************************************************************************
+ * SIDEBAR
+ ******************************************************************************/
+
+#sidebar{
+
+    grid-area:sidebar;
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+#sidebar nav{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:16px;
+
+}
+
+/******************************************************************************
+ * HEADER
+ ******************************************************************************/
+
+#header{
+
+    grid-area:header;
+
+}
+
+/******************************************************************************
+ * CONTENT
+ ******************************************************************************/
+
+#content{
+
+    grid-area:content;
+
+    display:grid;
+
+    grid-template-columns:
+
+        repeat(2,minmax(320px,1fr));
+
+    gap:20px;
+
+    align-content:start;
+
+    overflow:auto;
+
+}
+
+.hero{
+
+    grid-column:1/-1;
+
+    min-height:240px;
+
+}
+
+/******************************************************************************
+ * RIGHT PANEL
+ ******************************************************************************/
+
+#right-panel{
+
+    grid-area:right;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+
+}
+
+/******************************************************************************
+ * FOOTER
+ ******************************************************************************/
+
+footer{
+
+    grid-area:footer;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:flex-end;
+
+    gap:30px;
+
+}
+
+/******************************************************************************
+ * GLASS CARDS
+ ******************************************************************************/
+
+.glass{
+
+    min-height:180px;
+
+    padding:22px;
+
+}
+
+/******************************************************************************
+ * LARGE DESKTOP
+ ******************************************************************************/
+
+@media (min-width:1800px){
+
+    #content{
+
+        grid-template-columns:
+
+            repeat(3,1fr);
+
+    }
+
+}
+
+/******************************************************************************
+ * 1280x800
+ ******************************************************************************/
+
+@media (max-width:1280px){
+
+    :root{
+
+        --right-width:300px;
+
+    }
+
+}
+
+/******************************************************************************
+ * TABLET
+ ******************************************************************************/
+
+@media (max-width:1100px){
+
+    #dashboard{
+
+        grid-template-columns:
+
+            72px
+
+            1fr;
+
+        grid-template-areas:
+
+            "sidebar header"
+
+            "sidebar content"
+
+            "sidebar footer";
+
+    }
+
+    #right-panel{
+
+        display:none;
+
+    }
+
+}
+
+/******************************************************************************
+ * MOBILE
+ ******************************************************************************/
+
+@media (max-width:800px){
+
+    #content{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
