@@ -1,27 +1,41 @@
-import { Provider } from "./provider.js";
-
 export class HomeAssistantProvider extends Provider {
 
-    constructor() {
+    constructor(store) {
+
         super("homeassistant");
 
-        this.connected = false;
+        this.store = store;
+
+        this.hass = null;
+
     }
 
-    async connect() {
-        this.connected = true;
+    setHass(hass) {
 
-        console.log("[Relay] Home Assistant provider connected");
-    }
+        this.hass = hass;
 
-    async disconnect() {
-        this.connected = false;
-    }
+        this.store.setState({
 
-    getState() {
-        return {
-            connected: this.connected
-        };
+            connected: true,
+
+            providers: {
+
+                ...this.store.getState().providers,
+
+                homeassistant: {
+
+                    connected: true,
+
+                    version: hass.config?.version ?? "",
+
+                    user: hass.user?.name ?? null
+
+                }
+
+            }
+
+        });
+
     }
 
 }

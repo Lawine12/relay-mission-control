@@ -34,4 +34,10 @@ export class RelayApplication {
             new HomePage(this.layout.content)
         );
     }
+
+    setHass(hass) {
+
+    this.providers.setHass(hass);
+
+    }
 }

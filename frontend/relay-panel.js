@@ -1,7 +1,5 @@
-if (window.router) {
+set hass(hass) {
 
-    window.router.navigate(
-        this.activePage
-    );
+    this.application.setHass(hass);
 
 }

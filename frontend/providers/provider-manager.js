@@ -32,4 +32,10 @@ export class ProviderManager {
 
     }
 
+    setHass(hass) {
+
+    this.get("homeassistant")?.setHass(hass);
+
+    }
+
 }
