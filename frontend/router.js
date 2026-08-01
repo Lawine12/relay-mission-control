@@ -5,6 +5,7 @@
  * router.js
  *
  ******************************************************************************/
+import { SimRigPage } from "./pages/simrig-page.js";
 
 export class Router {
 
@@ -84,3 +85,10 @@ export class Router {
     }
 
 }
+router.register(
+
+    "simrig",
+
+    new SimRigPage(layout.content)
+
+);
