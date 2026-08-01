@@ -1,37 +1,39 @@
-console.log('Relay Mission Control');
-import { RelayPanel } from "./relay-panel.js";
+import { DashboardLayout } from "./layout/dashboard-layout.js";
 
-window.addEventListener("DOMContentLoaded", () => {
+import { RelaySidebar } from "./components/relay-sidebar.js";
+import { RelayHeader } from "./components/relay-header.js";
 
-    const app = new RelayPanel(document.body);
-
-    app.render();
-
-});
-import { RelayPanel } from "./relay-panel.js";
 import { Router } from "./router.js";
 
 import { HomePage } from "./pages/home-page.js";
 
 window.addEventListener("DOMContentLoaded", () => {
 
-    const panel = new RelayPanel(document.body);
+    const layout =
+        new DashboardLayout(document.body);
 
-    panel.render();
+    layout.render();
 
-    const content =
-        document.querySelector("#content");
+    const sidebar =
+        new RelaySidebar();
+
+    layout.sidebar.innerHTML =
+        sidebar.render();
+
+    const header =
+        new RelayHeader();
+
+    layout.header.innerHTML =
+        header.render();
 
     const router =
-        new Router(content);
+        new Router(layout.content);
 
     router.register(
         "home",
-        new HomePage()
+        new HomePage(layout.content)
     );
 
     router.start();
-
-    window.router = router;
 
 });
