@@ -113,3 +113,19 @@ class Store {
 }
 
 export const store = new Store();
+
+services: {
+
+    homeassistant: "online",
+
+    mqtt: "offline",
+
+    simhub: "offline",
+
+    crewchief: "offline",
+
+    tradingpaints: "offline",
+
+    internet: "online"
+
+},

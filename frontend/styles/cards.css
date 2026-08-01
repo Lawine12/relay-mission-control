@@ -224,4 +224,86 @@
 
     }
 
+}/******************************************************************************
+ * STATUS BAR
+ ******************************************************************************/
+
+#status-bar{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    height:100%;
+
+    padding:0 20px;
+
+}
+
+.status-bar-left{
+
+    display:flex;
+
+    gap:12px;
+
+    flex-wrap:wrap;
+
+}
+
+.status-service{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:6px 12px;
+
+    border-radius:999px;
+
+    background:rgba(255,255,255,.04);
+
+    border:1px solid rgba(255,255,255,.05);
+
+    font-size:12px;
+
+    letter-spacing:.04em;
+
+}
+
+.status-service.online .status-led{
+
+    background:#00D26A;
+
+    box-shadow:0 0 10px #00D26A;
+
+}
+
+.status-service.warning .status-led{
+
+    background:#FFB000;
+
+    box-shadow:0 0 10px #FFB000;
+
+}
+
+.status-service.offline .status-led{
+
+    background:#FF3B30;
+
+    box-shadow:0 0 10px #FF3B30;
+
+}
+
+.status-led{
+
+    width:10px;
+
+    height:10px;
+
+    border-radius:50%;
+
 }
