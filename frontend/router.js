@@ -42,7 +42,8 @@ export class Router {
 
         this.container.innerHTML = "";
 
-        this.current = this.routes.get(name);
+        import { store } from "./store/store.js";
+        store.setPage(name);
 
         if (this.current.mount) {
 
