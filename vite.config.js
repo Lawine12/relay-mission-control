@@ -3,29 +3,23 @@ import { resolve } from "node:path";
 
 export default defineConfig({
 
-    root: "frontend",
-
     build: {
 
-        outDir: "../custom_components/relay_mission_control/www/relay",
+        outDir: "custom_components/relay_mission_control/www",
 
         emptyOutDir: true,
 
-        sourcemap: true,
+        lib: {
 
-        rollupOptions: {
+            entry: resolve(__dirname, "frontend/relay.js"),
 
-            input: resolve(__dirname, "frontend/index.html")
+            name: "RelayMissionControl",
+
+            formats: ["es"],
+
+            fileName: () => "relay.js"
 
         }
-
-    },
-
-    server: {
-
-        port: 5173,
-
-        open: false
 
     }
 
