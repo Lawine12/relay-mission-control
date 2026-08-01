@@ -1,2 +1,1 @@
-# relay-mission-control
-relay-mission-control
+# Relay Mission Control
