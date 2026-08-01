@@ -1,1 +1,15 @@
-DOMAIN="relay_mission_control"
+"""Relay Mission Control."""
+
+from __future__ import annotations
+
+from homeassistant.core import HomeAssistant
+
+from .const import DOMAIN
+
+
+async def async_setup(hass: HomeAssistant, config: dict) -> bool:
+    """Set up Relay Mission Control."""
+
+    hass.data.setdefault(DOMAIN, {})
+
+    return True
