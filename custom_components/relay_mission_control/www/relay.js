@@ -1,4 +1,4 @@
-class r {
+class i {
   constructor(t) {
     this.root = t;
   }
@@ -17,7 +17,7 @@ class r {
     return document.querySelector("#content");
   }
 }
-class a {
+class n {
   constructor() {
     this.state = {
       page: "home",
@@ -72,40 +72,8 @@ class a {
     });
   }
 }
-const h = new a();
-class c {
-  constructor() {
-    this.events = /* @__PURE__ */ new Map();
-  }
-  on(t, e) {
-    return this.events.has(t) || this.events.set(t, /* @__PURE__ */ new Set()), this.events.get(t).add(e), () => this.off(t, e);
-  }
-  off(t, e) {
-    this.events.get(t)?.delete(e);
-  }
-  emit(t, e = {}) {
-    const n = this.events.get(t);
-    n && n.forEach((i) => {
-      try {
-        i(e);
-      } catch (o) {
-        console.error(
-          `[Relay] Event '${t}' failed`,
-          o
-        );
-      }
-    });
-  }
-  once(t, e) {
-    const n = this.on(t, (i) => {
-      n(), e(i);
-    });
-  }
-}
-const l = new c(), u = {
-  PAGE_CHANGED: "page.changed"
-};
-class d {
+const r = new n();
+class o {
   constructor(t) {
     this.container = t, this.routes = /* @__PURE__ */ new Map(), this.current = null;
   }
@@ -117,13 +85,7 @@ class d {
       console.warn(`Unknown page: ${t}`);
       return;
     }
-    this.current?.unmount && this.current.unmount(), this.container.innerHTML = "", h.setPage(t), l.emit(u.PAGE_CHANGED, {
-      page: t
-    }), this.current.mount ? this.current.mount(this.container) : this.current.render && this.current.render(this.container), history.replaceState(
-      {},
-      "",
-      "#" + t
-    );
+    this.current?.unmount && this.current.unmount(), this.current = this.routes.get(t), this.container.innerHTML = "", r.setPage(t), this.current?.mount ? this.current.mount(this.container) : this.current?.render && this.current.render(this.container), history.replaceState({}, "", "#" + t);
   }
   start(t = "home") {
     const e = window.location.hash.replace("#", "");
@@ -141,7 +103,7 @@ router.register(
   "simrig",
   new SimRigPage(layout.content)
 );
-class g {
+class a {
   constructor(t) {
     this.container = t;
   }
@@ -167,14 +129,14 @@ class g {
 `;
   }
 }
-class f extends HTMLElement {
+class h extends HTMLElement {
   constructor() {
     super(), this.attachShadow({ mode: "open" }), this.layout = null, this.router = null, this._hass = null;
   }
   connectedCallback() {
-    this.layout || (this.layout = new r(this.shadowRoot), this.layout.render(), this.router = new d(this.layout.content), this.router.register(
+    this.layout || (this.layout = new i(this.shadowRoot), this.layout.render(), this.router = new o(this.layout.content), this.router.register(
       "home",
-      new g(this.layout.content)
+      new a(this.layout.content)
     ), this.router.start("home"));
   }
   set hass(t) {
@@ -183,8 +145,8 @@ class f extends HTMLElement {
 }
 customElements.define(
   "relay-mission-control",
-  f
+  h
 );
 export {
-  f as RelayMissionControl
+  h as RelayMissionControl
 };

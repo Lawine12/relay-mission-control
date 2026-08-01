@@ -5,8 +5,6 @@
  ******************************************************************************/
 
 import { store } from "./store/store.js";
-import { Events } from "./core/event-bus.js";
-import { EVENT } from "./core/events.js";
 
 export class Router {
 
@@ -26,47 +24,36 @@ export class Router {
 
     }
 
-    navigate(name) {
+navigate(name) {
 
-        if (!this.routes.has(name)) {
-
-            console.warn(`Unknown page: ${name}`);
-
-            return;
-
-        }
-
-        if (this.current?.unmount) {
-
-            this.current.unmount();
-
-        }
-
-        this.container.innerHTML = "";
-
-        store.setPage(name);
-
-        Events.emit(EVENT.PAGE_CHANGED, {
-            page: name
-        });
-
-        if (this.current.mount) {
-
-            this.current.mount(this.container);
-
-        } else if (this.current.render) {
-
-            this.current.render(this.container);
-
-        }
-
-        history.replaceState(
-            {},
-            "",
-            "#" + name
-        );
-
+    if (!this.routes.has(name)) {
+        console.warn(`Unknown page: ${name}`);
+        return;
     }
+
+    // Unmount current page
+    if (this.current?.unmount) {
+        this.current.unmount();
+    }
+
+    // Switch to the requested page
+    this.current = this.routes.get(name);
+
+    // Clear container
+    this.container.innerHTML = "";
+
+    // Update application state
+    store.setPage(name);
+
+    // Mount new page
+    if (this.current?.mount) {
+        this.current.mount(this.container);
+    } else if (this.current?.render) {
+        this.current.render(this.container);
+    }
+
+    history.replaceState({}, "", "#" + name);
+}
 
     start(defaultPage = "home") {
 
