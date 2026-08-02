@@ -1,5 +1,9 @@
-import { Bootstrap } from "./Bootstrap.js";
+/******************************************************************************
+ * Apollo Application
+ ******************************************************************************/
+
 import { ApplicationShell } from "../layout/ApplicationShell.js";
+
 
 export class Application {
 
@@ -7,33 +11,37 @@ export class Application {
 
         this.root = root;
 
-        this.services = Bootstrap.create();
-
-        this.logger = this.services.resolve("logger");
-
-        this.shell = new ApplicationShell(root);
+        this.shell = new ApplicationShell();
 
     }
+
 
     start() {
 
-        this.logger.info("Starting Apollo...");
+        console.info(
+            "[Apollo] Starting..."
+        );
 
-        this.shell.mount();
 
-        this.logger.info("Apollo ready.");
+        this.shell.mount(
+            this.root
+        );
+
+
+        console.info(
+            "[Apollo] Ready."
+        );
 
     }
+
 
     stop() {
 
-        this.logger.info("Stopping Apollo.");
+        this.shell.unmount();
 
-    }
-
-    setHass(hass) {
-
-        this.hass = hass;
+        console.info(
+            "[Apollo] Stopped."
+        );
 
     }
 
