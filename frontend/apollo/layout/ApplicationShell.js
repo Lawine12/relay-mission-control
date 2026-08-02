@@ -1,47 +1,102 @@
-export class ApplicationShell {
+/******************************************************************************
+ * Apollo Application Shell
+ ******************************************************************************/
 
-    constructor(root) {
+import { Component } from "../ui/index.js";
 
-        this.root = root;
+import {
+    Header,
+    Sidebar,
+    Dashboard,
+    StatusPanel,
+    Footer
+} from "./components/index.js";
+
+
+export class ApplicationShell extends Component {
+
+
+    constructor() {
+
+        super();
+
+        this.header = new Header();
+        this.sidebar = new Sidebar();
+        this.dashboard = new Dashboard();
+        this.status = new StatusPanel();
+        this.footer = new Footer();
 
     }
 
-    mount() {
 
-        this.root.innerHTML = `
-            <style>
-                :host{
-                    display:block;
-                }
+    render() {
 
-                .apollo{
-                    padding:40px;
-                    color:white;
-                    font-family:Arial,sans-serif;
-                    background:#111;
-                    height:100vh;
-                }
+        const root = document.createElement("div");
 
-                h1{
-                    margin:0 0 20px;
-                }
+        root.className = "apollo-shell";
 
-                .status{
-                    color:#4CAF50;
-                    font-size:18px;
-                }
-            </style>
 
-            <div class="apollo">
-                <h1>Relay Mission Control</h1>
+        const body = document.createElement("div");
 
-                <h2>Apollo Core</h2>
+        body.className = "apollo-body";
 
-                <div class="status">
-                    ✔ Application Started
-                </div>
-            </div>
-        `;
+
+        root.append(
+            this.headerPlaceholder = document.createElement("div"),
+            body,
+            this.footerPlaceholder = document.createElement("div")
+        );
+
+
+        body.append(
+            this.sidebarPlaceholder =
+                document.createElement("div"),
+
+            this.dashboardPlaceholder =
+                document.createElement("div"),
+
+            this.statusPlaceholder =
+                document.createElement("div")
+        );
+
+
+        return root;
+
+    }
+
+
+    onMount() {
+
+        this.header.mount(
+            this.headerPlaceholder
+        );
+
+        this.sidebar.mount(
+            this.sidebarPlaceholder
+        );
+
+        this.dashboard.mount(
+            this.dashboardPlaceholder
+        );
+
+        this.status.mount(
+            this.statusPlaceholder
+        );
+
+        this.footer.mount(
+            this.footerPlaceholder
+        );
+
+    }
+
+
+    onUnmount() {
+
+        this.header.unmount();
+        this.sidebar.unmount();
+        this.dashboard.unmount();
+        this.status.unmount();
+        this.footer.unmount();
 
     }
 
