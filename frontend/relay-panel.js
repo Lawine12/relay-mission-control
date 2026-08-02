@@ -4,7 +4,7 @@
  * relay-panel.js
  ******************************************************************************/
 
-import { Application } from "./app/Application.js";
+import { Application } from "./apollo/index.js";
 
 export class RelayMissionControl extends HTMLElement {
 
@@ -18,13 +18,7 @@ export class RelayMissionControl extends HTMLElement {
 
         });
 
-        this.application =
-
-            new Application(
-
-                this.shadowRoot
-
-            );
+        this.application = new Application(this.shadowRoot);
 
     }
 

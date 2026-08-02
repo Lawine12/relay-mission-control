@@ -1,2 +1,35 @@
-class o{constructor(){this.instances=new Map,this.factories=new Map}register(t,s){if(this.instances.has(t)||this.factories.has(t))throw new Error(`Service '${t}' is already registered.`);this.instances.set(t,s)}factory(t,s){if(this.instances.has(t)||this.factories.has(t))throw new Error(`Service '${t}' is already registered.`);this.factories.set(t,s)}resolve(t){if(this.instances.has(t))return this.instances.get(t);if(this.factories.has(t)){const s=this.factories.get(t)(this);return this.instances.set(t,s),this.factories.delete(t),s}throw new Error(`Unknown service '${t}'.`)}has(t){return this.instances.has(t)||this.factories.has(t)}clear(){this.instances.clear(),this.factories.clear()}}class a{constructor(t="Relay"){this.prefix=t}info(...t){console.info(`[${this.prefix}]`,...t)}warn(...t){console.warn(`[${this.prefix}]`,...t)}error(...t){console.error(`[${this.prefix}]`,...t)}debug(...t){console.debug(`[${this.prefix}]`,...t)}}class c{constructor(){this.listeners=new Map}on(t,s){return this.listeners.has(t)||this.listeners.set(t,new Set),this.listeners.get(t).add(s),()=>this.off(t,s)}off(t,s){this.listeners.get(t)?.delete(s)}emit(t,s=null){const e=this.listeners.get(t);if(e)for(const i of e)i(s)}}class h{constructor(t={}){this.state=structuredClone(t),this.listeners=new Set}get(t=null){return t?t.split(".").reduce((s,e)=>s?.[e],this.state):structuredClone(this.state)}set(t,s){const e=t.split(".");let i=this.state;for(;e.length>1;){const n=e.shift();n in i||(i[n]={}),i=i[n]}i[e[0]]=s,this.emit()}subscribe(t){return this.listeners.add(t),t(this.get()),()=>{this.listeners.delete(t)}}emit(){const t=this.get();for(const s of this.listeners)s(t)}}class l{constructor(){this.providers=new Map}register(t){this.providers.set(t.id,t)}get(t){return this.providers.get(t)}async connectAll(){for(const t of this.providers.values())await t.connect()}async disconnectAll(){for(const t of this.providers.values())await t.disconnect()}setHass(t){this.get("homeassistant")?.setHass(t)}start(){return this.connectAll()}stop(){return this.disconnectAll()}}class u{constructor(t){this.id=t}async connect(){}async disconnect(){}setHass(t){}}class d extends u{constructor(t){super("homeassistant"),this.store=t,this.hass=null}async connect(){console.log("[Provider] Home Assistant ready")}async disconnect(){console.log("[Provider] Home Assistant disconnected"),this.store.setConnection("homeassistant",!1)}setHass(t){this.hass=t;const s=Object.keys(t.states).length;this.store.setConnection("homeassistant",!0),this.store.setHomeAssistant({version:t.config.version,entityCount:s,lastUpdate:new Date}),this.store.update("entities",t.states)}getEntity(t){return this.hass?.states?.[t]??null}callService(t,s,e={}){if(this.hass)return this.hass.callService(t,s,e)}}class g{static create(){const t=new o;t.register("logger",new a("Relay")),t.register("eventBus",new c),t.register("store",new h({page:"home",connection:{},entities:{}}));const s=new l(t.resolve("logger"));return s.register(new d(t.resolve("store"),t.resolve("logger"))),t.register("providers",s),t}}class p{constructor(t,s,e){this.container=t,this.logger=s,this.eventBus=e,this.routes=new Map,this.current=null}register(t,s){this.routes.set(t,s)}navigate(t){const s=this.routes.get(t);if(!s){this.logger.warn(`Unknown page '${t}'`);return}this.current?.unmount?.(),this.container.replaceChildren(),this.current=s,this.current.mount(this.container),this.eventBus.emit("page:changed",t)}start(t="home"){const s=window.location.hash.replace("#","");this.navigate(this.routes.has(s)?s:t)}}class f{constructor(t){this.root=t,this.container=null,this.router=null,this.started=!1}async start(){if(this.started)return;this.container=g.create(this.root);const t=this.container.resolve("logger");t.info("Starting Relay Mission Control..."),await this.container.resolve("providers").start(),this.router=new p(this.root,t,this.container.resolve("eventBus")),this.started=!0,t.info("Relay Mission Control ready.")}async stop(){if(!this.started)return;this.container.resolve("logger").info("Stopping..."),await this.container.resolve("providers").stop(),this.container.clear(),this.started=!1}setHass(t){this.container&&this.container.resolve("providers").setHass(t)}}class v extends HTMLElement{constructor(){super(),this.attachShadow({mode:"open"}),this.application=new f(this.shadowRoot)}connectedCallback(){this.application.start()}disconnectedCallback(){this.application.stop()}set hass(t){this.application.setHass(t)}}customElements.get("relay-mission-control")||customElements.define("relay-mission-control",v);
+class e{constructor(){this.services=new Map}register(s,o){if(this.services.has(s))throw new Error(`Service '${s}' already exists.`);this.services.set(s,o)}resolve(s){if(!this.services.has(s))throw new Error(`Unknown service '${s}'.`);return this.services.get(s)}}class i{constructor(s="Relay"){this.prefix=s}info(...s){console.log(`[${this.prefix}]`,...s)}warn(...s){console.warn(`[${this.prefix}]`,...s)}error(...s){console.error(`[${this.prefix}]`,...s)}}class r{static create(){const s=new e;return s.register("logger",new i("Relay")),s}}class l{constructor(s){this.root=s}mount(){this.root.innerHTML=`
+            <style>
+                :host{
+                    display:block;
+                }
+
+                .apollo{
+                    padding:40px;
+                    color:white;
+                    font-family:Arial,sans-serif;
+                    background:#111;
+                    height:100vh;
+                }
+
+                h1{
+                    margin:0 0 20px;
+                }
+
+                .status{
+                    color:#4CAF50;
+                    font-size:18px;
+                }
+            </style>
+
+            <div class="apollo">
+                <h1>Relay Mission Control</h1>
+
+                <h2>Apollo Core</h2>
+
+                <div class="status">
+                    ✔ Application Started
+                </div>
+            </div>
+        `}}class n{constructor(s){this.root=s,this.services=r.create(),this.logger=this.services.resolve("logger"),this.shell=new l(s)}start(){this.logger.info("Starting Apollo..."),this.shell.mount(),this.logger.info("Apollo ready.")}stop(){this.logger.info("Stopping Apollo.")}setHass(s){this.hass=s}}class a extends HTMLElement{constructor(){super(),this.attachShadow({mode:"open"}),this.application=new n(this.shadowRoot)}connectedCallback(){this.application.start()}disconnectedCallback(){this.application.stop()}set hass(s){this.application.setHass(s)}}customElements.get("relay-mission-control")||customElements.define("relay-mission-control",a);
 //# sourceMappingURL=relay.js.map
