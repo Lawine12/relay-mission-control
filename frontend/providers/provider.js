@@ -1,23 +1,29 @@
 /******************************************************************************
  *
- * Provider Interface
+ * Relay Mission Control
+ *
+ * Base Provider
  *
  ******************************************************************************/
 
 export class Provider {
 
     constructor(id) {
+
         this.id = id;
+
     }
 
     async connect() {
-        throw new Error("connect() not implemented");
+
     }
 
-    async disconnect() {}
+    async disconnect() {
 
-    getState() {
-        return {};
+    }
+
+    setHass(hass) {
+
     }
 
 }

@@ -38,4 +38,16 @@ export class ProviderManager {
 
     }
 
+start() {
+
+    return this.connectAll();
+
+}
+
+stop() {
+
+    return this.disconnectAll();
+
+}
+
 }

@@ -1,43 +1,100 @@
 /******************************************************************************
- *
  * Relay Mission Control
  *
- * RelayApplication
- *
+ * Application.js
  ******************************************************************************/
 
-import { DashboardLayout } from "../layout/dashboard-layout.js";
-import { Router } from "../router.js";
+import { Bootstrap } from "./Bootstrap.js";
+import { Router } from "../core/Router.js";
 
-import { HomePage } from "../pages/home-page.js";
+export class Application {
 
-export class RelayApplication {
-    constructor() {
-        this.layout = null;
+    constructor(root) {
+
+        this.root = root;
+
+        this.container = null;
+
         this.router = null;
+
+        this.started = false;
+
     }
 
-    start() {
-        this.layout = new DashboardLayout(document.body);
-        this.layout.render();
+    async start() {
 
-        this.router = new Router(this.layout.content);
+        if (this.started) {
 
-        this.registerPages();
+            return;
 
-        this.router.start("home");
-    }
+        }
 
-    registerPages() {
-        this.router.register(
-            "home",
-            new HomePage(this.layout.content)
+        this.container = Bootstrap.create(this.root);
+
+        const logger = this.container.resolve("logger");
+
+        logger.info("Starting Relay Mission Control...");
+
+        const providers =
+            this.container.resolve("providers");
+
+        await providers.start();
+
+        this.router = new Router(
+
+            this.root,
+
+            logger,
+
+            this.container.resolve("eventBus")
+
         );
+
+        this.started = true;
+
+        logger.info("Relay Mission Control ready.");
+
+    }
+
+    async stop() {
+
+        if (!this.started) {
+
+            return;
+
+        }
+
+        const logger =
+            this.container.resolve("logger");
+
+        logger.info("Stopping...");
+
+        await this.container
+
+            .resolve("providers")
+
+            .stop();
+
+        this.container.clear();
+
+        this.started = false;
+
     }
 
     setHass(hass) {
 
-    this.providers.setHass(hass);
+        if (!this.container) {
+
+            return;
+
+        }
+
+        this.container
+
+            .resolve("providers")
+
+            .setHass(hass);
 
     }
+
 }

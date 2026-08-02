@@ -13,5 +13,10 @@
   "devDependencies": {
     "eslint": "^9.0.0",
     "vite": "^7.0.0"
-  }
+  },
+  "scripts": {
+  "dev": "vite",
+  "build": "vite build",
+  "deploy": "powershell -ExecutionPolicy Bypass -File ./scripts/deploy.ps1"
+}
 }

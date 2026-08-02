@@ -9,15 +9,26 @@ export default defineConfig({
 
         emptyOutDir: true,
 
-        lib: {
+        sourcemap: true,
 
-            entry: resolve(__dirname, "frontend/relay.js"),
+        target: "es2022",
 
-            name: "RelayMissionControl",
+        rollupOptions: {
 
-            formats: ["es"],
+            input: resolve(
+                __dirname,
+                "frontend/main.js"
+            ),
 
-            fileName: () => "relay.js"
+            output: {
+
+                format: "es",
+
+                entryFileNames: "relay.js",
+
+                inlineDynamicImports: true
+
+            }
 
         }
 

@@ -1,0 +1,252 @@
+/******************************************************************************
+ *
+ * Relay RaceControl
+ *
+ * Global Theme
+ *
+ ******************************************************************************/
+
+@import url("./tokens.css");
+@import url("./typography.css");
+
+/******************************************************************************
+ *
+ * Reset
+ *
+ ******************************************************************************/
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    background: var(--relay-carbon);
+
+    color: var(--text-primary);
+
+    font-family: var(--font-family);
+
+    font-size: var(--font-size-md);
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    text-rendering: optimizeLegibility;
+}
+
+body {
+    position: relative;
+}
+
+/******************************************************************************
+ *
+ * Application Root
+ *
+ ******************************************************************************/
+
+#dashboard,
+.app {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/******************************************************************************
+ *
+ * Relay Carbon Background
+ *
+ ******************************************************************************/
+
+body::before {
+
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: -2;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.018) 25%,
+            transparent 25%,
+            transparent 50%,
+            rgba(255,255,255,.018) 50%,
+            rgba(255,255,255,.018) 75%,
+            transparent 75%
+        );
+
+    background-size: 28px 28px;
+
+    opacity: .35;
+
+}
+
+/******************************************************************************
+ *
+ * Ambient Glow
+ *
+ ******************************************************************************/
+
+body::after {
+
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: -1;
+
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(79,195,247,.12),
+            transparent 45%
+        ),
+        radial-gradient(
+            circle at bottom left,
+            rgba(79,195,247,.06),
+            transparent 55%
+        );
+
+}
+
+/******************************************************************************
+ *
+ * Links
+ *
+ ******************************************************************************/
+
+a {
+
+    color: var(--relay-blue);
+
+    text-decoration: none;
+
+    transition: color var(--transition-fast);
+
+}
+
+a:hover {
+
+    color: var(--relay-blue-hover);
+
+}
+
+/******************************************************************************
+ *
+ * Buttons
+ *
+ ******************************************************************************/
+
+button {
+
+    font: inherit;
+
+    border: none;
+
+    outline: none;
+
+    cursor: pointer;
+
+    background: none;
+
+}
+
+/******************************************************************************
+ *
+ * Selection
+ *
+ ******************************************************************************/
+
+::selection {
+
+    background: rgba(79,195,247,.35);
+
+    color: white;
+
+}
+
+/******************************************************************************
+ *
+ * Scrollbars
+ *
+ ******************************************************************************/
+
+::-webkit-scrollbar {
+
+    width: 10px;
+    height: 10px;
+
+}
+
+::-webkit-scrollbar-track {
+
+    background: transparent;
+
+}
+
+::-webkit-scrollbar-thumb {
+
+    background: rgba(255,255,255,.12);
+
+    border-radius: 999px;
+
+}
+
+::-webkit-scrollbar-thumb:hover {
+
+    background: rgba(79,195,247,.40);
+
+}
+
+/******************************************************************************
+ *
+ * Glass Surface Helper
+ *
+ ******************************************************************************/
+
+.glass {
+
+    background: var(--glass-background);
+
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+
+    border: 1px solid var(--glass-border);
+
+    border-radius: var(--radius-lg);
+
+    box-shadow: var(--shadow-md);
+
+}
+
+/******************************************************************************
+ *
+ * Focus
+ *
+ ******************************************************************************/
+
+:focus-visible {
+
+    outline: 2px solid var(--relay-blue);
+
+    outline-offset: 2px;
+
+}

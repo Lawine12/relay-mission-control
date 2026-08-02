@@ -1,39 +1,112 @@
 /******************************************************************************
- * Sidebar Icons
+ *
+ * Sidebar
+ *
  ******************************************************************************/
 
-.sidebar-icon{
+.sidebar {
 
-    width:24px;
+    display: flex;
+    flex-direction: column;
 
-    height:24px;
+    height: 100%;
 
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    color:#B8C0CC;
+    padding: var(--space-5);
 
 }
 
-.sidebar-icon svg{
+.sidebar-brand {
 
-    width:24px;
+    display: flex;
 
-    height:24px;
+    align-items: center;
 
-}
+    gap: var(--space-4);
 
-button:hover .sidebar-icon{
-
-    color:white;
+    margin-bottom: var(--space-7);
 
 }
 
-button.active .sidebar-icon{
+.sidebar-logo {
 
-    color:#009DFF;
+    width: 52px;
+    height: 52px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: var(--radius-md);
+
+    background: var(--relay-blue);
+
+    color: black;
+
+    font-weight: 800;
+
+    box-shadow: var(--shadow-blue);
+
+}
+
+.sidebar-title {
+
+    font-weight: 700;
+
+    line-height: 1.2;
+
+}
+
+.sidebar-menu {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--space-2);
+
+}
+
+.sidebar-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: var(--space-3);
+
+    width: 100%;
+
+    padding: 14px 16px;
+
+    color: var(--text-secondary);
+
+    border-radius: var(--radius-md);
+
+    transition: all var(--transition-fast);
+
+}
+
+.sidebar-item:hover {
+
+    background: rgba(255,255,255,.04);
+
+    color: white;
+
+}
+
+.sidebar-item.active {
+
+    background: rgba(79,195,247,.12);
+
+    color: white;
+
+    border-left: 4px solid var(--relay-blue);
+
+}
+
+.sidebar-icon {
+
+    width: 22px;
+
+    text-align: center;
 
 }

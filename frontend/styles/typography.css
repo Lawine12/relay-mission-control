@@ -1,0 +1,241 @@
+/******************************************************************************
+ *
+ * Relay RaceControl
+ *
+ * Typography
+ *
+ ******************************************************************************/
+
+/* Import Raleway from Google Fonts for development.
+   Later we can self-host the font under frontend/assets/fonts/ */
+
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap");
+
+/******************************************************************************
+ *
+ * Base
+ *
+ ******************************************************************************/
+
+body {
+
+    font-family: var(--font-family);
+
+    font-size: var(--font-size-md);
+
+    font-weight: var(--font-weight-regular);
+
+    line-height: 1.5;
+
+    color: var(--text-primary);
+
+}
+
+/******************************************************************************
+ *
+ * Headings
+ *
+ ******************************************************************************/
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+
+    margin: 0;
+
+    color: var(--text-primary);
+
+    font-weight: var(--font-weight-bold);
+
+    letter-spacing: .03em;
+
+}
+
+h1 {
+
+    font-size: 2rem;
+
+}
+
+h2 {
+
+    font-size: 1.5rem;
+
+}
+
+h3 {
+
+    font-size: 1.25rem;
+
+}
+
+h4 {
+
+    font-size: 1.125rem;
+
+}
+
+/******************************************************************************
+ *
+ * Dashboard Title
+ *
+ ******************************************************************************/
+
+.dashboard-title {
+
+    font-size: 1.5rem;
+
+    font-weight: 700;
+
+    letter-spacing: .08em;
+
+    text-transform: uppercase;
+
+    color: var(--relay-white);
+
+}
+
+/******************************************************************************
+ *
+ * Card Titles
+ *
+ ******************************************************************************/
+
+.card-title {
+
+    font-size: .95rem;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: .10em;
+
+    color: var(--relay-white);
+
+}
+
+/******************************************************************************
+ *
+ * Navigation
+ *
+ ******************************************************************************/
+
+.nav-title {
+
+    font-size: .90rem;
+
+    font-weight: 600;
+
+    letter-spacing: .08em;
+
+    text-transform: uppercase;
+
+}
+
+/******************************************************************************
+ *
+ * Metrics
+ *
+ ******************************************************************************/
+
+.metric-value {
+
+    font-size: 2rem;
+
+    font-weight: 700;
+
+    line-height: 1;
+
+    color: var(--relay-white);
+
+}
+
+.metric-label {
+
+    margin-top: 6px;
+
+    font-size: .75rem;
+
+    text-transform: uppercase;
+
+    letter-spacing: .12em;
+
+    color: var(--text-muted);
+
+}
+
+/******************************************************************************
+ *
+ * Labels
+ *
+ ******************************************************************************/
+
+.label {
+
+    font-size: .75rem;
+
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: .08em;
+
+    color: var(--text-secondary);
+
+}
+
+/******************************************************************************
+ *
+ * Small Text
+ *
+ ******************************************************************************/
+
+.small {
+
+    font-size: .75rem;
+
+    color: var(--text-muted);
+
+}
+
+/******************************************************************************
+ *
+ * Status
+ *
+ ******************************************************************************/
+
+.status-online {
+
+    color: var(--status-success);
+
+}
+
+.status-warning {
+
+    color: var(--status-warning);
+
+}
+
+.status-error {
+
+    color: var(--status-danger);
+
+}
+
+/******************************************************************************
+ *
+ * Numeric Values
+ *
+ ******************************************************************************/
+
+.number {
+
+    font-variant-numeric: tabular-nums;
+
+    font-feature-settings: "tnum";
+
+}

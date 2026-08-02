@@ -1,376 +1,125 @@
 /******************************************************************************
- * Progress Ring
+ *
+ * Status Pill
+ *
  ******************************************************************************/
 
-.progress-ring{
+.status-pill {
 
-    position:relative;
+    display: inline-flex;
 
-    width:140px;
+    align-items: center;
 
-    height:140px;
+    gap: var(--space-2);
 
-}
+    padding:
+        4px
+        10px;
 
-.progress-ring svg{
+    border-radius: 999px;
 
-    transform:rotate(-90deg);
+    background: rgba(255,255,255,.05);
 
-}
+    border: 1px solid var(--border-color);
 
-.track{
+    font-size: .75rem;
 
-    fill:none;
+    font-weight: 600;
 
-    stroke:rgba(255,255,255,.06);
+    text-transform: uppercase;
 
-}
-
-.progress{
-
-    fill:none;
-
-    stroke-linecap:round;
-
-    transition:
-
-        stroke-dashoffset .6s ease;
+    letter-spacing: .08em;
 
 }
 
-.ring-content{
+.status-pill-dot {
 
-    position:absolute;
+    width: 8px;
 
-    inset:0;
+    height: 8px;
 
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    justify-content:center;
+    border-radius: 50%;
 
 }
 
-.ring-value{
+.status-online .status-pill-dot {
 
-    font-size:34px;
+    background: var(--status-success);
 
-    font-weight:700;
-
-    color:white;
-
-}
-
-.ring-value span{
-
-    font-size:18px;
-
-    color:#9AA4AF;
+    box-shadow:
+        0 0 10px
+        var(--status-success);
 
 }
 
-.ring-label{
+.status-warning .status-pill-dot {
 
-    margin-top:6px;
-
-    font-size:13px;
-
-    letter-spacing:.15em;
-
-    color:#9AA4AF;
-
-    text-transform:uppercase;
-
-}/******************************************************************************
- * STATUS CHIP
- ******************************************************************************/
-
-.relay-chip{
-
-    display:inline-flex;
-
-    align-items:center;
-
-    gap:10px;
-
-    padding:8px 14px;
-
-    border-radius:999px;
-
-    background:
-
-        rgba(255,255,255,.04);
-
-    border:
-
-        1px solid rgba(255,255,255,.05);
-
-    transition:
-
-        transform .25s ease,
-
-        border-color .25s ease,
-
-        background .25s ease;
+    background: var(--status-warning);
 
 }
 
-.relay-chip:hover{
+.status-error .status-pill-dot {
 
-    transform:translateY(-2px);
-
-    border-color:
-
-        rgba(0,157,255,.18);
+    background: var(--status-danger);
 
 }
 
-.relay-chip-led{
+.status-offline .status-pill-dot {
 
-    width:10px;
-
-    height:10px;
-
-    border-radius:50%;
-
-    animation:
-
-        relayPulse 2s infinite;
-
-}
-
-.relay-chip-label{
-
-    color:white;
-
-    font-size:13px;
-
-    letter-spacing:.08em;
-
-}
-
-.relay-chip-icon{
-
-    width:18px;
-
-    height:18px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-}
-
-.relay-chip-online{
-
-    background:
-
-        rgba(0,210,106,.08);
-
-}
-
-.relay-chip-warning{
-
-    background:
-
-        rgba(255,176,0,.08);
-
-}
-
-.relay-chip-error{
-
-    background:
-
-        rgba(255,59,48,.08);
-
-}
-
-.relay-chip-info{
-
-    background:
-
-        rgba(0,157,255,.08);
-
-}
-
-@keyframes relayPulse{
-
-    0%{
-
-        transform:scale(.95);
-
-        opacity:.75;
-
-    }
-
-    50%{
-
-        transform:scale(1.1);
-
-        opacity:1;
-
-    }
-
-    100%{
-
-        transform:scale(.95);
-
-        opacity:.75;
-
-    }
-
-}/******************************************************************************
- * STATUS BAR
- ******************************************************************************/
-
-#status-bar{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    height:100%;
-
-    padding:0 20px;
-
-}
-
-.status-bar-left{
-
-    display:flex;
-
-    gap:12px;
-
-    flex-wrap:wrap;
-
-}
-
-.status-service{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:8px;
-
-    padding:6px 12px;
-
-    border-radius:999px;
-
-    background:rgba(255,255,255,.04);
-
-    border:1px solid rgba(255,255,255,.05);
-
-    font-size:12px;
-
-    letter-spacing:.04em;
-
-}
-
-.status-service.online .status-led{
-
-    background:#00D26A;
-
-    box-shadow:0 0 10px #00D26A;
-
-}
-
-.status-service.warning .status-led{
-
-    background:#FFB000;
-
-    box-shadow:0 0 10px #FFB000;
-
-}
-
-.status-service.offline .status-led{
-
-    background:#FF3B30;
-
-    box-shadow:0 0 10px #FF3B30;
-
-}
-
-.status-led{
-
-    width:10px;
-
-    height:10px;
-
-    border-radius:50%;
+    background: var(--status-offline);
 
 }
 
 /******************************************************************************
- * Race Actions
+ *
+ * Notification Rail
+ *
  ******************************************************************************/
 
-.race-actions{
+.notification-rail {
 
-    display:grid;
+    display: flex;
 
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    flex-direction: column;
 
-    gap:16px;
+    gap: var(--space-4);
 
-    margin-top:16px;
-
-}
-
-.race-actions button{
-
-    height:56px;
-
-    border:none;
-
-    border-radius:16px;
-
-    cursor:pointer;
-
-    font-weight:700;
-
-    letter-spacing:.08em;
-
-    text-transform:uppercase;
-
-    color:white;
-
-    background:
-
-        linear-gradient(
-            180deg,
-            rgba(0,157,255,.25),
-            rgba(0,157,255,.10)
-        );
-
-    transition:
-        transform .2s ease,
-        box-shadow .2s ease;
+    height: 100%;
 
 }
 
-.race-actions button:hover{
+.notification-list {
 
-    transform:translateY(-2px);
+    display: flex;
 
-    box-shadow:
-        0 0 24px rgba(0,157,255,.20);
+    flex-direction: column;
+
+    gap: var(--space-3);
 
 }
 
-.race-description{
+.notification-item {
 
-    margin-top:24px;
+    padding: var(--space-4);
 
-    color:#AEB6C2;
+    border-radius: var(--radius-md);
 
-    line-height:1.6;
+}
+
+.notification-title {
+
+    font-weight: 700;
+
+    margin-bottom: 4px;
+
+}
+
+.notification-empty {
+
+    color: var(--text-muted);
+
+    text-align: center;
+
+    padding: var(--space-6);
 
 }
