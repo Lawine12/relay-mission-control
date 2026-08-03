@@ -9,7 +9,8 @@ export class RelayBridgeProvider extends Provider {
     constructor(events) {
 
         super(
-            "relay_bridge"
+            "relay_bridge",
+            events
         );
 
 

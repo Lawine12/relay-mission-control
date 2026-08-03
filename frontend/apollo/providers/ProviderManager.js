@@ -5,9 +5,7 @@
 export class ProviderManager {
 
 
-    constructor(events = null) {
-
-        this.events = events;
+    constructor() {
 
         this.providers =
             new Map();
@@ -19,12 +17,6 @@ export class ProviderManager {
 
         this.providers.set(
             provider.getName(),
-            provider
-        );
-
-
-        this.events?.emit(
-            "provider.registered",
             provider
         );
 
@@ -47,15 +39,37 @@ export class ProviderManager {
     }
 
 
-    startAll() {
+    start() {
 
-        this.providers.forEach(
-            provider => {
+    this.providers.forEach(provider => {
 
-                provider.start();
+        provider.start();
 
-            }
-        );
+    });
+
+    }
+
+    stop() {
+
+    this.providers.forEach(provider => {
+
+        provider.stop();
+
+    });
+
+    }
+
+    setHass(hass) {
+
+    const provider =
+        this.get("home_assistant");
+
+    if (
+        provider &&
+        typeof provider.setHass === "function"
+    ) {
+        provider.setHass(hass);
+    }
 
     }
 

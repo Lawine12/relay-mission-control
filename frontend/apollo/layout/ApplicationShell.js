@@ -4,183 +4,60 @@
 
 import { Component } from "../ui/Component.js";
 
-import { Header } from "./components/Header.js";
-import { Sidebar } from "./components/Sidebar.js";
-import { StatusPanel } from "./components/StatusPanel.js";
-import { Footer } from "./components/Footer.js";
-
 import { PageHost } from "./PageHost.js";
 
+import {
+    Header,
+    Sidebar,
+    StatusPanel,
+    Footer
+} from "./components/index.js";
 
 export class ApplicationShell extends Component {
-
 
     constructor(router, context) {
 
         super();
 
-
         this.router = router;
-
         this.context = context;
 
-
-        this.header =
-            new Header();
-
-
-        this.sidebar =
-            new Sidebar(
-                router
-            );
-
-
-        this.pageHost =
-            new PageHost(
-                context
-            );
-
-
-        this.statusPanel =
-            new StatusPanel(
-                context.events,
-                context.providers
-            );
-
-
-        this.footer =
-            new Footer();
-
+        this.header = new Header(context);
+        this.sidebar = new Sidebar(router);
+        this.pageHost = new PageHost(router, context);
+        this.status = new StatusPanel(context);
+        this.footer = new Footer(context);
 
     }
 
-
     render() {
 
+        const root =
+            document.createElement("div");
 
-        const shell =
-            document.createElement(
-                "div"
-            );
-
-
-        shell.className =
+        root.className =
             "apollo-shell";
 
-
-        this.headerContainer =
-            document.createElement(
-                "header"
-            );
-
-
         const body =
-            document.createElement(
-                "div"
-            );
-
+            document.createElement("div");
 
         body.className =
             "apollo-body";
 
+        this.header.mount(root);
 
-        this.sidebarContainer =
-            document.createElement(
-                "aside"
-            );
+        this.sidebar.mount(body);
 
+        this.pageHost.mount(body);
 
-        this.pageContainer =
-            document.createElement(
-                "main"
-            );
+        this.status.mount(body);
 
+        root.append(body);
 
-        this.statusContainer =
-            document.createElement(
-                "aside"
-            );
+        this.footer.mount(root);
 
-
-        body.append(
-
-            this.sidebarContainer,
-
-            this.pageContainer,
-
-            this.statusContainer
-
-        );
-
-
-        this.footerContainer =
-            document.createElement(
-                "footer"
-            );
-
-
-        shell.append(
-
-            this.headerContainer,
-
-            body,
-
-            this.footerContainer
-
-        );
-
-
-        return shell;
+        return root;
 
     }
-
-
-
-    onMount() {
-
-
-        this.header.mount(
-            this.headerContainer
-        );
-
-
-        this.sidebar.mount(
-            this.sidebarContainer
-        );
-
-
-        this.pageHost.mount(
-            this.pageContainer
-        );
-
-
-        this.statusPanel.mount(
-            this.statusContainer
-        );
-
-
-        this.footer.mount(
-            this.footerContainer
-        );
-
-    }
-
-
-
-    onUnmount() {
-
-
-        this.header.unmount();
-
-        this.sidebar.unmount();
-
-        this.pageHost.unmount();
-
-        this.statusPanel.unmount();
-
-        this.footer.unmount();
-
-    }
-
 
 }

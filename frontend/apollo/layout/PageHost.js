@@ -1,63 +1,67 @@
 /******************************************************************************
- * Apollo PageHost
- *
- * Responsible for rendering routed pages.
+ * Apollo Page Host
  ******************************************************************************/
 
 import { Component } from "../ui/Component.js";
 
-
 export class PageHost extends Component {
 
-
-    constructor(context) {
+    constructor(router, context) {
 
         super();
 
+        this.router = router;
         this.context = context;
 
         this.currentPage = null;
 
         this.container = null;
 
-    }
+        this.unsubscribe = null;
 
+    }
 
     render() {
 
-
         this.container =
-            document.createElement(
-                "main"
-            );
-
+            document.createElement("main");
 
         this.container.className =
             "apollo-page-host";
-
 
         return this.container;
 
     }
 
+    onMount() {
 
-    show(PageClass) {
+        this.unsubscribe =
+            this.router.subscribe(
+                (path, Page) => {
 
+                    this.show(Page);
 
-        if (!PageClass) {
-
-            console.warn(
-                "[Apollo PageHost] Missing page class"
+                }
             );
 
-            return;
+        const current =
+            this.router.getCurrent();
+
+        if (current) {
+
+            this.show(
+                current.Page
+            );
 
         }
 
+    }
 
-        /*
-         * Remove current page
-         */
+    show(PageClass) {
+
+        if (!PageClass) {
+            return;
+        }
 
         if (this.currentPage) {
 
@@ -67,19 +71,12 @@ export class PageHost extends Component {
 
         }
 
-
         this.container.replaceChildren();
-
-
-        /*
-         * Create new page with context
-         */
 
         this.currentPage =
             new PageClass(
                 this.context
             );
-
 
         this.currentPage.mount(
             this.container
@@ -87,9 +84,9 @@ export class PageHost extends Component {
 
     }
 
-
     onUnmount() {
 
+        this.unsubscribe?.();
 
         if (this.currentPage) {
 
@@ -99,8 +96,6 @@ export class PageHost extends Component {
 
         }
 
-
     }
-
 
 }

@@ -5,15 +5,25 @@
  ******************************************************************************/
 
 import { Bootstrap } from "./Bootstrap.js";
+
 import { Router } from "../router/Router.js";
+
+import { ApplicationShell } from "../layout/ApplicationShell.js";
+
+import { DashboardPage } from "../pages/DashboardPage.js";
 
 export class Application {
 
     constructor(root) {
 
         this.root = root;
+
         this.container = null;
+
         this.router = null;
+
+        this.shell = null;
+
         this.started = false;
 
     }
@@ -24,26 +34,63 @@ export class Application {
             return;
         }
 
-        this.container = Bootstrap.create(this.root);
+        this.container = Bootstrap.create();
 
-        const logger = this.container.resolve("logger");
+        const logger =
+            this.container.resolve("logger");
 
-        logger.info("Starting Relay Mission Control...");
+        logger.info(
+            "Starting Relay Mission Control..."
+        );
 
         const providers =
             this.container.resolve("providers");
 
         await providers.start();
 
-        this.router = new Router(
-            this.root,
-            logger,
-            this.container.resolve("eventBus")
+        this.router =
+            new Router();
+
+        this.shell =
+            new ApplicationShell(
+                this.router,
+                {
+                    events:
+                        this.container.resolve("eventBus"),
+
+                    store:
+                        this.container.resolve("store"),
+
+                    providers
+                }
+            );
+
+        this.shell.mount(
+            this.root
+        );
+
+        /*
+         * Register pages
+         */
+
+        this.router.register(
+            "dashboard",
+            DashboardPage
+        );
+
+        /*
+         * Open default page
+         */
+
+        this.router.navigate(
+            "dashboard"
         );
 
         this.started = true;
 
-        logger.info("Relay Mission Control ready.");
+        logger.info(
+            "Relay Mission Control ready."
+        );
 
     }
 
@@ -53,12 +100,9 @@ export class Application {
             return;
         }
 
-        const providers =
-            this.container.resolve("providers");
-
-        if (providers && typeof providers.setHass === "function") {
-            providers.setHass(hass);
-        }
+        this.container
+            .resolve("providers")
+            .setHass(hass);
 
     }
 
@@ -68,10 +112,9 @@ export class Application {
             return;
         }
 
-        const logger =
-            this.container.resolve("logger");
+        this.shell?.unmount();
 
-        logger.info("Stopping...");
+        this.shell = null;
 
         await this.container
             .resolve("providers")

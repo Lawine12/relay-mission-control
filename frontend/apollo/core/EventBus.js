@@ -1,211 +1,115 @@
 /******************************************************************************
- * Apollo Event Bus
+ * Relay Mission Control
  *
- * Global event communication system.
+ * Apollo Framework
+ * EventBus.js
  ******************************************************************************/
 
 export class EventBus {
 
-
-    constructor() {
-
-        this.listeners = new Map();
-
-    }
-
-
+    #listeners = new Map();
 
     /**
-     * Subscribe to an event
-     *
+     * Subscribe to an event.
      * @param {string} event
-     * @param {function} callback
-     * @returns unsubscribe function
+     * @param {Function} callback
+     * @returns {Function} unsubscribe function
      */
-
     on(event, callback) {
 
-
-        if (!this.listeners.has(event)) {
-
-            this.listeners.set(
-                event,
-                new Set()
-            );
-
+        if (!this.#listeners.has(event)) {
+            this.#listeners.set(event, new Set());
         }
 
+        const listeners = this.#listeners.get(event);
+        listeners.add(callback);
 
-        this.listeners
-            .get(event)
-            .add(callback);
-
-
-
-        return () => {
-
-
-            const handlers =
-                this.listeners.get(event);
-
-
-
-            if (!handlers) {
-
-                return;
-
-            }
-
-
-            handlers.delete(
-                callback
-            );
-
-
-            if (handlers.size === 0) {
-
-                this.listeners.delete(
-                    event
-                );
-
-            }
-
-
-        };
-
+        return () => this.off(event, callback);
 
     }
 
-
-
     /**
-     * Subscribe once
+     * Subscribe once.
      */
-
     once(event, callback) {
 
+        const unsubscribe = this.on(event, (...args) => {
 
-        const unsubscribe =
-            this.on(
+            unsubscribe();
 
-                event,
+            callback(...args);
 
-                data => {
-
-                    unsubscribe();
-
-                    callback(data);
-
-                }
-
-            );
-
+        });
 
         return unsubscribe;
 
     }
 
+    /**
+     * Remove a listener.
+     */
+    off(event, callback) {
 
+        const listeners = this.#listeners.get(event);
+
+        if (!listeners) {
+            return;
+        }
+
+        listeners.delete(callback);
+
+        if (listeners.size === 0) {
+            this.#listeners.delete(event);
+        }
+
+    }
 
     /**
-     * Emit an event
+     * Emit an event.
      */
+    emit(event, payload = null) {
 
-    emit(event, data = null) {
+        const listeners = this.#listeners.get(event);
 
-
-        const handlers =
-            this.listeners.get(event);
-
-
-
-        if (!handlers) {
-
+        if (!listeners) {
             return;
+        }
+
+        for (const callback of listeners) {
+
+            try {
+
+                callback(payload);
+
+            } catch (error) {
+
+                console.error(
+                    `[EventBus] '${event}' listener failed`,
+                    error
+                );
+
+            }
 
         }
 
-
-
-        handlers.forEach(
-            callback => {
-
-
-                try {
-
-
-                    callback(
-                        data
-                    );
-
-
-                }
-                catch(error) {
-
-
-                    console.error(
-
-                        `[Apollo EventBus] Error in "${event}"`,
-
-                        error
-
-                    );
-
-
-                }
-
-
-            }
-        );
-
-
     }
 
-
-
     /**
-     * Remove all listeners for an event
+     * Remove all listeners.
      */
-
-    off(event) {
-
-
-        this.listeners.delete(
-            event
-        );
-
-
-    }
-
-
-
-    /**
-     * Clear everything
-     */
-
     clear() {
 
-
-        this.listeners.clear();
-
+        this.#listeners.clear();
 
     }
-
-
 
     /**
-     * Debug helper
+     * Number of subscribed event names.
      */
+    size() {
 
-    getEvents() {
-
-
-        return Array.from(
-            this.listeners.keys()
-        );
-
+        return this.#listeners.size;
 
     }
-
 
 }
