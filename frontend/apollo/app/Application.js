@@ -12,6 +12,8 @@ import { ApplicationShell } from "../layout/ApplicationShell.js";
 
 import { DashboardPage } from "../pages/DashboardPage.js";
 
+import { NavigationController } from "../navigation/index.js";
+
 export class Application {
 
     constructor(root) {
@@ -25,6 +27,8 @@ export class Application {
         this.shell = null;
 
         this.started = false;
+
+        this.navigation = null;
 
     }
 
@@ -69,6 +73,14 @@ export class Application {
             this.root
         );
 
+        this.navigation =
+        new NavigationController(
+        this.router,
+        this.shell.pageHost
+    );
+
+this.navigation.start();
+
         /*
          * Register pages
          */
@@ -111,6 +123,9 @@ export class Application {
         if (!this.started) {
             return;
         }
+
+        this.navigation?.stop();
+        this.navigation = null;
 
         this.shell?.unmount();
 

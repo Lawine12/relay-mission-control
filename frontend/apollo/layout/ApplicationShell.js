@@ -22,11 +22,11 @@ export class ApplicationShell extends Component {
         this.router = router;
         this.context = context;
 
-        this.header = new Header(context);
+        this.header = new Header();
         this.sidebar = new Sidebar(router);
         this.pageHost = new PageHost(router, context);
-        this.status = new StatusPanel(context);
-        this.footer = new Footer(context);
+        this.status = new StatusPanel(context.events, context.providers);
+        this.footer = new Footer();
 
     }
 
