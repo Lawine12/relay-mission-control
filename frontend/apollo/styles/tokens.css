@@ -1,0 +1,22 @@
+:root {
+
+    --apollo-bg: #07090c;
+    --apollo-panel: #141820;
+    --apollo-panel-hover: #1b222c;
+
+    --apollo-border: #252c36;
+
+    --apollo-accent: #00aaff;
+    --apollo-success: #4caf50;
+
+    --apollo-text: #ffffff;
+    --apollo-muted: #9aa4b2;
+
+    --apollo-radius: 12px;
+
+    --apollo-gap: 16px;
+
+    --apollo-shadow:
+        0 10px 30px rgba(0,0,0,0.35);
+
+}

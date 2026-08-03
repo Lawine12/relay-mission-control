@@ -2,51 +2,161 @@
  * Apollo Status Panel
  ******************************************************************************/
 
-import { Component } from "../../ui/index.js";
+import { Component } from "../../ui/Component.js";
 import { el } from "../../ui/Dom.js";
 
 
 export class StatusPanel extends Component {
 
 
-    render() {
+    constructor(events = null, providers = null) {
 
-        const providers = [
-            "Home Assistant",
-            "MQTT",
-            "SimHub",
-            "CrewChief",
-            "Trading Paints"
-        ];
+        super();
 
+        this.events = events;
 
-        return el(
-            "aside",
-            {
-                class: "apollo-status"
-            },
-            [
+        this.providers = providers;
 
-                el(
-                    "h2",
-                    {
-                        text: "Providers"
-                    }
-                ),
+        this.providerState = {};
 
-                ...providers.map(provider =>
-                    el(
-                        "div",
-                        {
-                            class: "provider",
-                            text: `○ ${provider}`
-                        }
-                    )
-                )
-
-            ]
-        );
+        this.unsubscribe = null;
 
     }
+
+
+    render() {
+
+
+        this.root =
+            el(
+                "aside",
+                {
+                    class:"apollo-status"
+                }
+            );
+
+
+        this.root.append(
+
+            el(
+                "h2",
+                {
+                    text:"Providers"
+                }
+            )
+
+        );
+
+
+        this.list =
+            el(
+                "div",
+                {
+                    class:"provider-list"
+                }
+            );
+
+
+        this.root.append(
+            this.list
+        );
+
+
+        this.renderProviders();
+
+
+        return this.root;
+
+    }
+
+
+    onMount() {
+
+
+        if (!this.events) {
+            return;
+        }
+
+
+        this.unsubscribe =
+            this.events.on(
+                "provider.status",
+                data => {
+
+
+                    this.providerState[data.name] =
+                        data.status;
+
+
+                    this.renderProviders();
+
+                }
+            );
+
+
+        this.renderProviders();
+
+    }
+
+
+    renderProviders() {
+
+
+        if (!this.list) {
+            return;
+        }
+
+
+        this.list.replaceChildren();
+
+
+        const providers =
+            this.providers
+                ? this.providers.getAll()
+                : [];
+
+
+        providers.forEach(provider => {
+
+
+            const status =
+                this.providerState[
+                    provider.getName()
+                ]
+                ?? provider.getStatus();
+
+
+            const dot =
+                status === "connected"
+                    ? "🟢"
+                    : status === "error"
+                    ? "🔴"
+                    : "⚪";
+
+
+            this.list.append(
+
+                el(
+                    "div",
+                    {
+                        class:"provider",
+                        text:
+                        `${dot} ${provider.getName()}`
+                    }
+                )
+
+            );
+
+        });
+
+    }
+
+
+    onUnmount() {
+
+        this.unsubscribe?.();
+
+    }
+
 
 }

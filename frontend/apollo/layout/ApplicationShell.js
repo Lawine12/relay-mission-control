@@ -2,102 +2,185 @@
  * Apollo Application Shell
  ******************************************************************************/
 
-import { Component } from "../ui/index.js";
+import { Component } from "../ui/Component.js";
 
-import {
-    Header,
-    Sidebar,
-    Dashboard,
-    StatusPanel,
-    Footer
-} from "./components/index.js";
+import { Header } from "./components/Header.js";
+import { Sidebar } from "./components/Sidebar.js";
+import { StatusPanel } from "./components/StatusPanel.js";
+import { Footer } from "./components/Footer.js";
+
+import { PageHost } from "./PageHost.js";
 
 
 export class ApplicationShell extends Component {
 
 
-    constructor() {
+    constructor(router, context) {
 
         super();
 
-        this.header = new Header();
-        this.sidebar = new Sidebar();
-        this.dashboard = new Dashboard();
-        this.status = new StatusPanel();
-        this.footer = new Footer();
+
+        this.router = router;
+
+        this.context = context;
+
+
+        this.header =
+            new Header();
+
+
+        this.sidebar =
+            new Sidebar(
+                router
+            );
+
+
+        this.pageHost =
+            new PageHost(
+                context
+            );
+
+
+        this.statusPanel =
+            new StatusPanel(
+                context.events,
+                context.providers
+            );
+
+
+        this.footer =
+            new Footer();
+
 
     }
 
 
     render() {
 
-        const root = document.createElement("div");
 
-        root.className = "apollo-shell";
-
-
-        const body = document.createElement("div");
-
-        body.className = "apollo-body";
+        const shell =
+            document.createElement(
+                "div"
+            );
 
 
-        root.append(
-            this.headerPlaceholder = document.createElement("div"),
-            body,
-            this.footerPlaceholder = document.createElement("div")
-        );
+        shell.className =
+            "apollo-shell";
+
+
+        this.headerContainer =
+            document.createElement(
+                "header"
+            );
+
+
+        const body =
+            document.createElement(
+                "div"
+            );
+
+
+        body.className =
+            "apollo-body";
+
+
+        this.sidebarContainer =
+            document.createElement(
+                "aside"
+            );
+
+
+        this.pageContainer =
+            document.createElement(
+                "main"
+            );
+
+
+        this.statusContainer =
+            document.createElement(
+                "aside"
+            );
 
 
         body.append(
-            this.sidebarPlaceholder =
-                document.createElement("div"),
 
-            this.dashboardPlaceholder =
-                document.createElement("div"),
+            this.sidebarContainer,
 
-            this.statusPlaceholder =
-                document.createElement("div")
+            this.pageContainer,
+
+            this.statusContainer
+
         );
 
 
-        return root;
+        this.footerContainer =
+            document.createElement(
+                "footer"
+            );
+
+
+        shell.append(
+
+            this.headerContainer,
+
+            body,
+
+            this.footerContainer
+
+        );
+
+
+        return shell;
 
     }
+
 
 
     onMount() {
 
+
         this.header.mount(
-            this.headerPlaceholder
+            this.headerContainer
         );
+
 
         this.sidebar.mount(
-            this.sidebarPlaceholder
+            this.sidebarContainer
         );
 
-        this.dashboard.mount(
-            this.dashboardPlaceholder
+
+        this.pageHost.mount(
+            this.pageContainer
         );
 
-        this.status.mount(
-            this.statusPlaceholder
+
+        this.statusPanel.mount(
+            this.statusContainer
         );
+
 
         this.footer.mount(
-            this.footerPlaceholder
+            this.footerContainer
         );
 
     }
+
 
 
     onUnmount() {
 
+
         this.header.unmount();
+
         this.sidebar.unmount();
-        this.dashboard.unmount();
-        this.status.unmount();
+
+        this.pageHost.unmount();
+
+        this.statusPanel.unmount();
+
         this.footer.unmount();
 
     }
+
 
 }

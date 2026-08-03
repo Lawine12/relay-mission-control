@@ -12,11 +12,8 @@ export class Application {
     constructor(root) {
 
         this.root = root;
-
         this.container = null;
-
         this.router = null;
-
         this.started = false;
 
     }
@@ -24,9 +21,7 @@ export class Application {
     async start() {
 
         if (this.started) {
-
             return;
-
         }
 
         this.container = Bootstrap.create(this.root);
@@ -41,13 +36,9 @@ export class Application {
         await providers.start();
 
         this.router = new Router(
-
             this.root,
-
             logger,
-
             this.container.resolve("eventBus")
-
         );
 
         this.started = true;
@@ -56,12 +47,25 @@ export class Application {
 
     }
 
+    setHass(hass) {
+
+        if (!this.container) {
+            return;
+        }
+
+        const providers =
+            this.container.resolve("providers");
+
+        if (providers && typeof providers.setHass === "function") {
+            providers.setHass(hass);
+        }
+
+    }
+
     async stop() {
 
         if (!this.started) {
-
             return;
-
         }
 
         const logger =
@@ -70,30 +74,12 @@ export class Application {
         logger.info("Stopping...");
 
         await this.container
-
             .resolve("providers")
-
             .stop();
 
         this.container.clear();
 
         this.started = false;
-
-    }
-
-    setHass(hass) {
-
-        if (!this.container) {
-
-            return;
-
-        }
-
-        this.container
-
-            .resolve("providers")
-
-            .setHass(hass);
 
     }
 

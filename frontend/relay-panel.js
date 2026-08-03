@@ -5,6 +5,7 @@
  ******************************************************************************/
 
 import { Application } from "./apollo/index.js";
+import css from "./apollo/styles/index.css?inline";
 
 export class RelayMissionControl extends HTMLElement {
 
@@ -17,6 +18,12 @@ export class RelayMissionControl extends HTMLElement {
             mode: "open"
 
         });
+
+        const style = document.createElement("style");
+
+        style.textContent = css;
+
+        this.shadowRoot.appendChild(style);
 
         this.application = new Application(this.shadowRoot);
 

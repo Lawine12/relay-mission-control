@@ -1,0 +1,41 @@
+:root {
+
+    --relay-orange:#ff6600;
+
+    --relay-black:#0b0b0b;
+
+    --relay-panel:#151515;
+
+    --relay-border:#333;
+
+}
+
+
+.apollo-widget {
+
+    background:
+
+    linear-gradient(
+
+        145deg,
+
+        #181818,
+
+        #0d0d0d
+
+    );
+
+
+    border:
+
+    1px solid var(--relay-border);
+
+
+    border-radius:16px;
+
+
+    box-shadow:
+
+    0 10px 30px rgba(0,0,0,.5);
+
+}

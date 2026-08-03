@@ -1,0 +1,382 @@
+.apollo-header,
+.apollo-sidebar,
+.apollo-dashboard,
+.apollo-status,
+.apollo-footer {
+
+    background:
+        var(--apollo-panel);
+
+    border:
+        1px solid var(--apollo-border);
+
+    border-radius:
+        var(--apollo-radius);
+
+    box-shadow:
+        var(--apollo-shadow);
+
+}
+
+
+/* HEADER */
+
+.apollo-header {
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:
+        0 24px;
+
+}
+
+
+.apollo-title {
+
+    font-size:24px;
+
+    font-weight:700;
+
+}
+
+
+.apollo-clock {
+
+    color:
+        var(--apollo-muted);
+
+}
+
+
+/* SIDEBAR */
+
+.apollo-sidebar {
+
+    padding:16px;
+
+}
+
+
+.sidebar-item {
+
+    padding:
+        12px 14px;
+
+    margin-bottom:
+
+        8px;
+
+    border-radius:
+
+        8px;
+
+    transition:
+        .2s;
+
+}
+
+
+.sidebar-item:hover {
+
+    background:
+        var(--apollo-panel-hover);
+
+    color:
+        var(--apollo-accent);
+
+}
+
+
+/* DASHBOARD */
+
+.apollo-dashboard {
+
+    padding:
+        32px;
+
+}
+
+
+.apollo-dashboard h1 {
+
+    margin-top:0;
+
+}
+
+
+/* STATUS */
+
+.apollo-status {
+
+    padding:
+        20px;
+
+}
+
+
+.provider {
+
+    padding:
+        8px 0;
+
+    color:
+        var(--apollo-muted);
+
+}
+
+
+/* FOOTER */
+
+.apollo-footer {
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:
+        0 24px;
+
+    color:
+        var(--apollo-muted);
+
+}
+
+.sidebar-title {
+
+    font-size:18px;
+
+    font-weight:700;
+
+    margin-bottom:20px;
+
+}
+
+
+.sidebar-menu {
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+}
+
+
+.sidebar-item {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    width:100%;
+
+    border:none;
+
+    background:none;
+
+    color:
+        var(--apollo-text);
+
+    text-align:left;
+
+    cursor:pointer;
+
+}
+
+
+.sidebar-icon {
+
+    width:24px;
+
+}
+
+
+.sidebar-item.active {
+
+    background:
+        var(--apollo-accent);
+
+    color:#000;
+
+}
+
+.provider {
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:8px 0;
+
+    color:var(--apollo-muted);
+
+}
+
+.apollo-widget-grid {
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(280px, 1fr)
+        );
+
+    gap:
+        var(--apollo-gap);
+
+}
+
+
+.widget {
+
+    background:
+        var(--apollo-panel);
+
+    border:
+        1px solid var(--apollo-border);
+
+    border-radius:
+        var(--apollo-radius);
+
+    padding:
+        16px;
+
+}
+
+/******************************************************************************
+ * Apollo Dashboard Page
+ ******************************************************************************/
+
+.apollo-dashboard-page {
+
+    width:100%;
+
+}
+
+
+.apollo-dashboard-page h1 {
+
+    margin-bottom:20px;
+
+}
+
+
+/******************************************************************************
+ * Widget Grid
+ ******************************************************************************/
+
+.apollo-widget-grid {
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(280px, 1fr)
+        );
+
+    gap:20px;
+
+    width:100%;
+
+}
+
+
+/******************************************************************************
+ * Widget Cards
+ ******************************************************************************/
+
+.widget {
+
+    background:
+        rgba(255,255,255,0.04);
+
+    border:
+        1px solid rgba(255,255,255,0.12);
+
+    border-radius:12px;
+
+    padding:20px;
+
+    min-height:120px;
+
+}
+
+
+.widget h2 {
+
+    margin-top:0;
+
+    font-size:18px;
+
+}
+
+
+.widget-content {
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+}
+
+.telemetry {
+
+    text-align:center;
+
+}
+
+
+.telemetry-speed {
+
+    font-size:64px;
+
+    font-weight:bold;
+
+}
+
+
+.telemetry-unit {
+
+    opacity:0.6;
+
+    margin-bottom:20px;
+
+}
+
+
+.telemetry-line {
+
+    margin-top:8px;
+
+    font-size:18px;
+
+}
+
+.fuel {
+
+    font-size:24px;
+
+    font-weight:bold;
+
+}
+
+.widget-content p {
+
+    margin:6px 0;
+
+}
